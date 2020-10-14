@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+<meta name="format-detection" content="telephone=yes">
+<title></title>
+<link rel="stylesheet" href="static/layui/css/layui.css">
+<link rel="stylesheet" href="static/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="static/loading/css/three-dots.min.css">
+<script src="static/js/jquery.js"></script>
+<script src="static/js/layer/layer.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/vConsole/3.3.0/vconsole.min.js"></script>
+<script type="text/JavaScript" src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+<script src="static/rem/rem.js"></script>
+
+<style type="text/css">
+@font-face {
+    font-family: "cytiva";
+    src: url("static/cytivaFont/Founder-Lanting-Pro_GB18030-V2.00.woff")
+}
+*{margin:0;padding:0;list-style-type:none;box-sizing: border-box;-webkit-overflow-scrolling: touch;font-family: "cytiva";}
+body{overflow: hidden;}
+html{overflow: hidden;}
+.loading-group{width: 100vw;height: 100vh;overflow: hidden;padding: 30px 3%;display: flex;flex-direction: column;justify-content: space-between;}
+.loading-top{width: 100%;display: flex;align-items: center;justify-content: center;margin-top: 30px;}
+.loading-top img{width: 60%;}
+
+.loading-center{flex: 1;display: flex;justify-content: center;align-items: center;overflow: hidden;position: relative;}
+.loading-center video{width: 80%;}
+.load-road{width: 100%;height: 100%;display: flex;justify-content: center;align-items: flex-end;position: relative;}
+/* .load-road img{width: 50%;} */
+.img-load{animation: treeRoad 10s infinite linear;position: absolute;bottom: 16%;width: 70%;left: 50%;transform: translateX(-50%);}
+.load-tree{max-width: 100%;max-height: 100%; position: relative;z-index: 999}
+
+.logo-group{width: 94%;margin: 0 auto; display: flex;align-items: center;}
+.logo-group img{width: 24%;}
+.loading-text{width: 100%;display: flex;justify-content: center;align-items: flex-end;margin-bottom: 20px;}
+.loading-text span{font-size: 30px;color: #00886F;}
+.dot-pulse{background-color: #00886F;color: #00886F;box-shadow: 9984px 0 0 0 #00886F, 9999px 0 0 0 #00886F, 10014px 0 0 0 #00886F;animation: dotPulse 1.5s infinite linear;width: 5px;height: 5px;}
+
+
+/* 圆点动画 */
+.spinner {
+    padding-left: 10px;
+}
+.spinner > div {
+    width: 6px;
+    height: 6px;
+    background-color: #00886F;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+    animation: bouncedelay 1.4s infinite ease-in-out;
+    /* Prevent first frame from flickering when animation starts */
+    
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.spinner .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+.spinner .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+@-webkit-keyframes treeRoad {
+    0% {transform: translateX(-50%) rotate(0)}
+    100% {
+        transform: translateX(-50%) rotate(360deg)
+    }
+}
+@-webkit-keyframes treeRoad_halo {
+    0% {transform: rotate(0)}
+    100% {
+        transform: rotate(360deg)
+    }
+}
+@-webkit-keyframes bouncedelay {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0.0)
+    }
+    40% {
+        -webkit-transform: scale(1.0)
+    }
+}
+@keyframes bouncedelay {
+    0%, 80%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    }
+    40% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
+}
+
+.tree-one{width: 100vw;height: 100vh;overflow: hidden;position: relative;}
+.base-top{width: 100%;display: flex;align-items: center;padding: 20px 3%;justify-content: space-between;}
+.base-sm-logo{padding-left: 15px;}
+.tree-video{width: 100%;height: 100%;position: relative;z-index: 9;}
+.tree-video video{width: 100%;}
+.treeOne-main{width: 100%;height: 100%;position: absolute;top: 0;left: 0;z-index: 999;}
+.treeOne-click{position: absolute;display: flex;justify-content: center;align-items: center;color: #fff;}
+
+
+/* .treeOne-click1{width: 55px;height: 45px;top: 33%;left: 23%;}
+.treeOne-click2{width: 25px;height: 20px;top: 32%;right: 27%;}
+.treeOne-click3{width: 30px;height: 25px;top: 38.5%;right: 31%;}
+.treeOne-click4{width: 40px;height: 35px;top: 43%;right: 12%;}
+.treeOne-click5{width: 35px;height: 30px;top: 46%;left: 12%;}
+.treeOne-click6{width: 60px;height: 50px;top: 47%;right: 32%;} */
+
+.treeOne-click1{width: 0.55rem;height: 0.45rem;top: 2.7rem;left: 1rem;}
+.treeOne-click2{width: 0.3rem;height: 0.3rem;top: 2.6rem;right: 1.1rem;}
+.treeOne-click3{width: 0.4rem;height: 0.3rem;top: 3.1rem;right: 1.3rem;}
+.treeOne-click4{width: 0.50rem;height: 0.4rem;top: 3.5rem;right: 0.4rem;}
+.treeOne-click5{width: 0.4rem;height: 0.4rem;top: 3.7rem;left: 0.5rem;}
+.treeOne-click6{width: 0.7rem;height: 0.5rem;top: 3.8rem;right: 1.3rem;}
+
+.treeOne-btn{width: 60%;left: 50%;transform: translateX(-50%);top: 5.9rem;background: none;cursor: pointer;}
+.treeOne-btn img{width: 100%;}
+
+.masking{width: 100vw;height: 100vh;position: fixed;top: 0;left: 0;background: rgba(0,0,0,0.8);z-index: 9999;}
+.card-group{width: 80%;height: 60vh;position: fixed;top: 50%;left: 50%;transform: translate(-50%,-50%);z-index: 99999;}
+.halo-group{position: absolute;top: 0;left: 0;}
+.halo-img{position: relative;}
+.halo-img-area{animation: treeRoad_halo 10s infinite linear;}
+.halo-card{position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);width: 70%;}
+
+.card-main{width: 100%;height: 100%;background: #fff;border-radius: 6px;padding-top: 140px;display: flex;flex-direction: column;align-items: center;justify-content: space-around;padding-bottom: 15px;}
+.card-main-top-text{color: #777777;font-size: 18px;text-align: center;}
+/* .card-main-btn{width: 100%;} */
+.main-btn-area{background: #FD591F;color: #fff;font-size: 18px;font-weight: bold;padding: 5px 26px;border-radius: 30px;cursor: pointer;text-align: center;}
+
+
+.textarea-group,.desire-group{width: 100%;height: 60vh;position: fixed;top: 50%;left: 50%;transform: translate(-50%,-50%);z-index: 99999;}
+.textarea-main{position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);width: 120%;}
+.textarea-area{width: 30%;position: absolute;top: 55%;left: 50%;transform: translate(-50%,-50%);z-index: 999;}
+.textarea-btn{width: 100%;display: flex;justify-content: center;}
+.layui-textarea{min-height: 80px;resize: none;background: none;border: none;text-align: center;}
+
+/* 云 */
+.cloud-area{position: absolute;}
+
+.cloud-area img{width: 100%;}
+.cloud-one{width: 1rem;left: -0.1rem;top: 0.7rem;animation: cloud1 4s infinite ease alternate;}
+.cloud-two{width: 1.80rem;right: -0.1rem;top: 0;animation: cloud2 4s infinite ease alternate;}
+.cloud-three{width: 0.9rem;right: 0.2rem;top: 3.6rem;animation: cloud2 5s infinite ease alternate;}
+
+@keyframes cloud1 {
+    0%{
+        transform: translate(-0.1rem,0);
+        /* -webkit-transform: scale(0.0); */
+    }
+    100% {
+        transform: translate(0.3rem,0);
+    }
+}
+@keyframes cloud2 {
+    0%{
+        transform: translate(-0.3rem,0);
+        /* -webkit-transform: scale(0.0); */
+    }
+    100% {
+        transform: translate(0.1rem,0);
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="base-group">
+    <!-- loading -->
+    <div class="loading-group" style="">
+        <div class="logo-group"><img src="static/image/logo.png" alt=""></div>
+        <div class="loading-top"><img src="static/image/loading-top.png" alt=""></div>
+        <div class="loading-center">
+            <div class="load-road">
+                <img class="img-load" src="static/image/circular.png" alt="">
+                <img class="load-tree"  src="static/image/loading.gif" alt="">
+            </div>
+        </div>
+        <div class="loading-bom">
+            <div class="loading-text">
+                <span>Loading</span>
+                <div class="spinner">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="tree-one" style="display: none;">
+        <div class="base-top">
+            <div class="base-logo"><img style="width: 100px;" src="static/image/logo.png" alt=""></div>
+            <div class="base-sm-logo"><img style="width: 110px;" src="static/image/loading-top.png" alt=""></div>
+        </div>
+        <div class="tree-video">
+            <!-- 云 -->
+            <div class="cloud-area cloud-one"><img src="static/image/cloud.png" alt=""></div>
+            <div class="cloud-area cloud-two"><img src="static/image/cloud.png" alt=""></div>
+            <div class="cloud-area cloud-three"><img src="static/image/cloud.png" alt=""></div>
+            <!-- 树 -->
+            <img class="third-tree" style="width: 100%;" src="static/image/second.gif" alt="">
+        </div>
+        <div class="treeOne-main">
+            <div class="treeOne-click treeOne-click1" data-desire="测试愿望一"></div>
+            <div class="treeOne-click treeOne-click2" data-desire="测试愿望二"></div>
+            <div class="treeOne-click treeOne-click3" data-desire="测试愿望三"></div>
+            <div class="treeOne-click treeOne-click4" data-desire="测试愿望四"></div>
+            <div class="treeOne-click treeOne-click5" data-desire="测试愿望五"></div>
+            <div class="treeOne-click treeOne-click6" style="display: none;"></div>
+            <div class="treeOne-click treeOne-btn"><img src="static/image/btn.png" alt=""></div>
+        </div>
+    </div>
+</div>
+
+<!-- 弹框一 -->
+<div class="masking" style="display: none;"></div>
+<div class="card-group" style="display: none;">
+    <div class="halo-group">
+        <div class="halo-img">
+            <div class="halo-img-area"><img style="width: 100%;" src="static/image/halo.png" alt=""></div>
+            <div class="halo-card"><img style="width: 100%;" src="static/image/halo-card.png" alt=""></div>
+        </div>
+    </div>
+    <div class="card-main">
+        <div class="card-main-top">
+            <div class="card-main-top-text">获得许愿符 <span style="color: #EA591C;"> x1</span></div>
+            <div class="card-main-top-text" style="color: #000;font-weight: bold;">快去许个愿吧！</div>
+        </div>
+        <div class="card-main-btn">
+            <div class="main-btn-area desire-btn">填写愿望</div>
+        </div>
+    </div>
+</div>
+
+<div class="textarea-group" style="display: none;">
+    <div class="halo-img">
+        <div class="halo-img-area"><img style="width: 100%;" src="static/image/halo.png" alt=""></div>
+        <div class="textarea-main">
+            <img style="width: 100%;" src="static/image/Scene4.gif" alt="">
+            <div class="textarea-area"><textarea class="layui-textarea" placeholder="请点击此处输入您的愿望"></textarea></div>
+        </div>
+    </div>
+    <div class="textarea-btn" style="position: relative;z-index: 999999;">
+        <div class="card-main-btn" style="width: 30%;">
+            <div class="main-btn-area textarea-submit">提交</div>
+        </div>
+    </div>
+</div>
+<div class="desire-group" style="display: none;">
+    <div class="halo-img">
+        <div class="halo-img-area"><img style="width: 100%;" src="static/image/halo.png" alt=""></div>
+        <div class="textarea-main">
+            <img style="width: 100%;" src="static/image/Scene4.gif" alt="">
+            <div class="textarea-area"><textarea class="layui-textarea" placeholder="请点击此处输入您的愿望"></textarea></div>
+        </div>
+    </div>
+    <div class="textarea-btn" style="position: relative;z-index: 999999;">
+        <div class="card-main-btn" style="width: 30%;">
+            <div class="main-btn-area desire-submit">关闭</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+// var vConsole = new VConsole();
+var win_h = $(window).height();
+var win_w = $(window).width();
+var proportion = win_w / win_h
+if(proportion > 0.62){
+    $(".img-load").css({"width": "50%"});
+
+}
+// alert(win_w / win_h)
+$(window).on("load",function(){
+    var t = setInterval(() => {
+        var halo_h = $(".halo-group").outerHeight() / 2-50;
+        $(".card-group").css({"padding-top": halo_h+"px"})
+        $(".card-main").css({"padding-top": halo_h+50+"px"})
+    }, 100);
+    
+    setTimeout(function(){
+        $(".loading-group").hide();
+        $(".tree-one").show();
+    },3000)
+
+    // 领取许愿福
+    $(".treeOne-btn").click(function(){
+        $(".masking").show();
+        $(".card-group").show();
+    })
+    // 点击填写愿望
+    $(".desire-btn").click(function(){
+        $(".card-group").hide();
+        $(".textarea-group").show();
+        clearInterval(t);
+    })
+
+    // 提交
+    var mine_desire = '';
+    $(".textarea-submit").click(function(){
+        if($(".textarea-area textarea").val() != ''){
+            mine_desire = $(".textarea-area textarea").val();
+            $(".treeOne-click6").attr("data-desire",mine_desire)
+            $(".masking").hide();
+            $(".textarea-group").hide();
+
+            $(".treeOne-click6").show();
+            $(".third-tree").attr("src","static/image/third.gif");
+            $(".treeOne-btn").hide();
+        }else{
+            layer.msg('请填写您的愿望');
+        }
+        
+    })
+
+    $(".treeOne-click1").click(function(){
+        var desire = $(this).attr("data-desire");
+        $(".masking").show();
+        $(".desire-group").show();
+        $(".desire-group").find("textarea").val(desire)
+    })
+    $(".treeOne-click2").click(function(){
+        var desire = $(this).attr("data-desire");
+        $(".masking").show();
+        $(".desire-group").show();
+        $(".desire-group").find("textarea").val(desire)
+    })
+    $(".treeOne-click3").click(function(){
+        var desire = $(this).attr("data-desire");
+        $(".masking").show();
+        $(".desire-group").show();
+        $(".desire-group").find("textarea").val(desire)
+    })
+    $(".treeOne-click4").click(function(){
+        var desire = $(this).attr("data-desire");
+        $(".masking").show();
+        $(".desire-group").show();
+        $(".desire-group").find("textarea").val(desire)
+    })
+    $(".treeOne-click5").click(function(){
+        var desire = $(this).attr("data-desire");
+        $(".masking").show();
+        $(".desire-group").show();
+        $(".desire-group").find("textarea").val(desire)
+    })
+    $(".treeOne-click6").click(function(){
+        var desire = $(this).attr("data-desire");
+        $(".masking").show();
+        $(".desire-group").show();
+        $(".desire-group").find("textarea").val(desire)
+    })
+    $(".desire-submit").click(function(){
+        $(".masking").hide();
+        $(".desire-group").hide();
+    })
+})
+
+</script>
+
+</body>
+</html>
